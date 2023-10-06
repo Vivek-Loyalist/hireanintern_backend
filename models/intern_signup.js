@@ -17,11 +17,10 @@ const usersSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  profile_picture: String,
-  saved_recipes: Number,
-  uploaded_recipes: Number,
+ 
 });
 
-const Users = mongoose.model('Users', usersSchema);
+const intern_signup = mongoose.model('intern_signup', usersSchema, 'intern_signup'); 
+// in line 23 'intern_signup' is the name of the collection in the database
 
-module.exports = Users;
+module.exports = intern_signup;

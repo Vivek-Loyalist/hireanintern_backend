@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 mongoose.connect(
-    'mongodb://localhost:27017/delicious_bytes', 
+    'mongodb+srv://gurramvivek2k:hZlA4QL4cchTzsTk@cluster0.cb80rxn.mongodb.net/final_backend?retryWrites=true&w=majority', 
     {
         useNewUrlParser: true, 
         useUnifiedTopology: true
