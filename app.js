@@ -7,6 +7,8 @@ var cors = require('cors')
 require('./config/connection')
 var intern_signup_route = require('./routes/intern_signup_route');
 var employer_signup_route = require('./routes/employer_signup_route');
+var job_details_route = require('./routes/job_details_route');
+var apply_job_route = require('./routes/apply_job_route');
 
 
 var app = express();
@@ -25,6 +27,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/intern', intern_signup_route);
 
 app.use('/employer', employer_signup_route);
+
+app.use('/job', job_details_route);
+
+app.use('/job', apply_job_route);
+
+// this job should be first in the postman request /job/jobdetails
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
