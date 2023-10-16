@@ -7,6 +7,7 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
+// apply job request
 
 router.post('/applyjob', async(req, res)=> {
   const user = new apply_job_route(req.body)

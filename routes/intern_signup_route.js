@@ -38,9 +38,9 @@ router.post('/login', async(req, res)=> {
     const user =await intern_signup_route.findOne({email: req.body.email, password: req.body.password})
     console.log("found user")
     if(!user){
-      return res.status(404).send()
+      return res.status(404).send({message: "user not found"})
     }
-    res.send(user)
+    res.send({message: "sucessfully logged in"})
   } catch (error) {
     res.status(500).send(error)
   }
