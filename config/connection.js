@@ -6,7 +6,7 @@ mongoose.connect(
         useUnifiedTopology: true
     }
 ).then(()=>{
-    console.log('connection sucess')
+    console.log('Connection Sucess to MongoDB Atlas')
 }).catch((error)=>{
     console.log('error', error);
 })
