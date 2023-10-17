@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 
 const usersSchema = new mongoose.Schema({
+
+  job_title: {
+    type: String,
+    required: true,
+  },
   
   company_name: {
     type: String,

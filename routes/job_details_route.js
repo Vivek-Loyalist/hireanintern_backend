@@ -18,6 +18,8 @@ router.post('/jobdetails', async(req, res)=> {
   }
 });
 
+
+
 // get request by id 
 router.get('/jobdetails/:id', async(req, res)=> {
   try {
