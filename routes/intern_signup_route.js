@@ -20,6 +20,7 @@ router.post('/register', async(req, res)=> {
 
 // get request by id 
 router.get('/register/:id', async(req, res)=> {
+  
   try {
     const user = await intern_signup_route.findById(req.params.id)
     if(!user){
