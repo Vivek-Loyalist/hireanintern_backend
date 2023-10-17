@@ -73,13 +73,15 @@ router.post('/login', async (req, res) => {
     }
 
     // Compare the provided password with the stored hashed password
-    bcrypt.compare(req.body.password, user.password, (err, result) => {
-      if (req.body.password === user.password) {
+    bcrypt.compare(req.body.password, user.password, async (err, passwordsMatch) => {
+      if (passwordsMatch) {
         // Passwords match, user is successfully logged in
-        res.send({ message: "Successfully logged in" });
+        // res.send({ message: "Successfully logged in" });
+        return res.status(200).json({ message: "Successfully logged in" })
       } else {
         // Passwords do not match
-        res.status(401).send({ message: "Authentication failed" });
+        // res.status(401).send({ message: "Authentication failed" });
+        return res.status(401).json({ message: "Authentication failed" })
       }
     });
   } catch (error) {
