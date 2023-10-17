@@ -53,54 +53,58 @@ router.post('/register', async (req, res) => {
   });
 });
 
-
-
-
-
 // for login using post request
 
 // router.post('/login', async (req, res) => {
 //   try {
-//     const user = employer_signup_route.findOne({ email: req.body.email, password: req.body.password })
-//     console.log("found user")
-//     bcrypt.compare(req.body.password, hash, function (err, result) {
-//       // result == true
-//     });
-//       bcrypt.compare(someOtherPlaintextPassword, hash, function (err, result) {
-//         // result == false
-//       });
-//         if (!user) {
-//           return res.status(404).send({ message: "user not found" })
-//         }
-//         res.send({ message: "sucessfully logged in" })
-//       } catch (error) {
-//         res.status(500).send(error)
+//     const user = await employer_signup_route.findOne({ email: req.body.email , password: req.body.password});
+
+//     if (!user) {
+//       return res.status(404).send({ message: "User not found" });
+//     }
+
+//     // Compare the provided password with the stored hashed password
+//     bcrypt.compare(req.body.password, user.password, (err, result) => {
+//       if (req.body.password === user.password) {
+//         // Passwords match, user is successfully logged in
+//         res.send({ message: "Successfully logged in" });
+//       } else {
+//         // Passwords do not match
+//         res.status(401).send({ message: "Authentication failed" });
 //       }
 //     });
+//   } catch (error) {
+//     res.status(500).send(error);
+//   }
+// });
+
 
 
 router.post('/login', async (req, res) => {
   try {
-    const user = await employer_signup_route.findOne({ email: req.body.email , password: req.body.password});
+    // Find the user by email
+    const user = await employer_signup_route.findOne({ email: req.body.email });
 
     if (!user) {
-      return res.status(404).send({ message: "User not found" });
+      // User not found
+      return res.status(404).json({ message: "User not found" });
     }
 
     // Compare the provided password with the stored hashed password
-    bcrypt.compare(req.body.password, user.password, (err, result) => {
-      if (req.body.password === user.password) {
+    bcrypt.compare(req.body.password, user.password, async (err, passwordsMatch) => {
+      if (passwordsMatch) {
         // Passwords match, user is successfully logged in
-        res.send({ message: "Successfully logged in" });
+        return res.status(200).json({ message: "Successfully logged in" });
       } else {
         // Passwords do not match
-        res.status(401).send({ message: "Authentication failed" });
+        return res.status(401).json({ message: "Authentication failed" });
       }
     });
   } catch (error) {
     res.status(500).send(error);
   }
 });
+
 
 
 

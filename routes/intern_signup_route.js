@@ -44,21 +44,8 @@ router.post('/register', async (req, res) => {
 });
 
 
-// get request by id 
-router.get('/register/:id', async(req, res)=> {
-
-  try {
-    const user = await intern_signup_route.findById(req.params.id)
-    if(!user){
-      return res.status(404).send()
-    }
-    res.send(user)
-  } catch (error) {
-    res.status(500).send(error)
-  }
-});
-
-// for login using post request
+ 
+// for login using post request no hashing
 
 // router.post('/login', async(req, res)=> {
 //   try {
@@ -73,7 +60,9 @@ router.get('/register/:id', async(req, res)=> {
 //   }
 // });
 
-// for login using post request
+
+
+// for login using post request using bcrypt
 
 router.post('/login', async (req, res) => {
   try {
@@ -85,7 +74,7 @@ router.post('/login', async (req, res) => {
 
     // Compare the provided password with the stored hashed password
     bcrypt.compare(req.body.password, user.password, (err, result) => {
-      if (result) {
+      if (req.body.password === user.password) {
         // Passwords match, user is successfully logged in
         res.send({ message: "Successfully logged in" });
       } else {
