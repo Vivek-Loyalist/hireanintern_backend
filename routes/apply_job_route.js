@@ -32,6 +32,9 @@ router.get('/applyjob/:id', async(req, res)=> {
   }
 });
 
+// post request to retrive data by job tittle, location,company name,job location and image_source
+router.post('/')
+
 
 
 module.exports = router;

@@ -7,6 +7,10 @@ const usersSchema = new mongoose.Schema({
     required: true,
   },
 
+  company_name: {
+    type: String,
+  },
+
     email: {
         type: String,
         required: true,
@@ -18,10 +22,16 @@ const usersSchema = new mongoose.Schema({
   },
   
 
-  intern_resume: {
-    type: String,
-    // required: true, should have to write and change the file typeas required.
+  // intern_resume: {
+  //   type: String,
+  //   // required: true, should have to write and change the file typeas required.
+  // },
+
+  resume_score: {
+    type: Number,
   },
+
+
  
 });
 

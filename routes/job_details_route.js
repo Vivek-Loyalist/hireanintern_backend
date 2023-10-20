@@ -27,6 +27,19 @@ router.get('/jobdetails/:id', async(req, res)=> {
     if(!user){
       return res.status(404).send()
     }
+    res.send( user)
+  } catch (error) {
+    res.status(500).send(error)
+  }
+});
+
+// get request by job title , company name , location, job description and image source
+router.get('/jobdetails', async(req, res)=> {
+  try {
+    const user = await job_details_route.find({})
+    if(!user){
+      return res.status(404).send()
+    }
     res.send(user)
   } catch (error) {
     res.status(500).send(error)
