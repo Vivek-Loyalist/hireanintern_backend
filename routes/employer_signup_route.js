@@ -12,27 +12,7 @@ router.get('/', function (req, res, next) {
   res.send('respond with a resource');
 });
 
-
-// router.post('/register', async(req, res)=> {
-//   const user = new employer_signup_route(req.body)
-
-//   // hashing password
-//   bcrypt.genSalt(saltRounds, function(err, salt) {
-//     bcrypt.hash(myPlaintextPassword, salt, function(err, hash) {
-//         // Store hash in your password DB.
-
-//     });
-// });
-// try {
-//   await user.save()
-//   // res.status(201).send("user created")
-//   res.status(201).send(user)
-// } catch (error) {
-//   res.status(500).send(error)
-// }
-// });
-
-
+// Post request to get new user in database
 
 router.post('/register', async (req, res) => {
   const user = new employer_signup_route(req.body)
@@ -53,32 +33,7 @@ router.post('/register', async (req, res) => {
   });
 });
 
-// for login using post request
-
-// router.post('/login', async (req, res) => {
-//   try {
-//     const user = await employer_signup_route.findOne({ email: req.body.email , password: req.body.password});
-
-//     if (!user) {
-//       return res.status(404).send({ message: "User not found" });
-//     }
-
-//     // Compare the provided password with the stored hashed password
-//     bcrypt.compare(req.body.password, user.password, (err, result) => {
-//       if (req.body.password === user.password) {
-//         // Passwords match, user is successfully logged in
-//         res.send({ message: "Successfully logged in" });
-//       } else {
-//         // Passwords do not match
-//         res.status(401).send({ message: "Authentication failed" });
-//       }
-//     });
-//   } catch (error) {
-//     res.status(500).send(error);
-//   }
-// });
-
-
+// Post request to login user
 
 router.post('/login', async (req, res) => {
   try {
@@ -102,6 +57,23 @@ router.post('/login', async (req, res) => {
     });
   } catch (error) {
     res.status(500).send(error);
+  }
+});
+
+
+//  get request to get company_name by email
+
+router.get('/company_name/:email', async (req, res) => {
+  try {
+    const user = await employer_signup_route.findOne({ email: req.params.email })
+    if (!user) {
+      // return res.status(404).send()
+      return res.status(404).json({ error: 'Email not found in the database' });
+
+    }
+    res.send(user.company_name)
+  } catch (error) {
+    res.status(500).send(error)
   }
 });
 

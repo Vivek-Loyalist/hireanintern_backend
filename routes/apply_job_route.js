@@ -53,50 +53,7 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
-// apply job request
-
-// router.post('/applyjob', async (req, res) => {
-//   try {
-//     // Save the user to the database
-//     const user = new apply_job_route(req.body);
-//     const savedUser = await user.save();
-    
-//     // Extract the ObjectId from the saved user
-//     const userId = savedUser._id;
-
-
-//     // Make a POST request to the other API
-//     const response = await axios.get('http://localhost:4001/fetch-resume');
-
-//     // Check the response status
-//     if (response.status === 200) {
-//       // Extract the resume_score from the response
-//       const resumeScore = response.data.resume_score;
-
-//       // console.log(resumeScore); // For debugging
-//       console.log('resumeScore', resumeScore); // For debugging
-
-
-//       // Now you can use the "resumeScore" variable as needed
-
-//       // Add your additional task here, after the user is saved and resumeScore is obtained.
-//       // This task should go here.
-
-//       res.status(201).send('message: User saved successfully');
-//     } else {
-//       // Handle the case when the response status is not 200
-//       console.error('Error in the response from /fetch-resume:', response.status);
-//       res.status(500).send('Internal Server Error - /fetch-resume');
-//     }
-//   } catch (error) {
-//     // Log the error details for debugging
-//     console.error('Error in /applyjob:', error);
-//     res.status(500).send('Internal Server Error');
-//   }
-// });
-
-
-
+// create new user in database and invoking another api
 
 router.post('/applyjob', async (req, res) => {
   try {
@@ -130,6 +87,23 @@ router.post('/applyjob', async (req, res) => {
   } catch (error) {
     console.error('Error in /applyjob:', error);
     res.status(500).send('Internal Server Error');
+  }
+});
+
+
+
+// get request by company name to get pulled out by emplooyer
+
+router.get('/applyjob/:company_name', async (req, res) => {
+  try {
+    const user = await apply_job_route.find({ company_name: req.params.company_name });
+    if (!user) {
+      return res.status(404).send(); // Send a 404 response when the user is not found.
+    }
+    res.send(user); // Send the user data when found.
+  } catch (error) {
+    console.error('Error in /applyjob:', error);
+    res.status(500).send(error); // Handle server errors.
   }
 });
 
