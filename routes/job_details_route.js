@@ -46,6 +46,20 @@ router.get('/jobdetails', async(req, res)=> {
   }
 });
 
+// get all jobs by company name
+router.get('/jobdetails/company/:company', async(req, res)=> {
+  console.log(req.params.company)
+  try {
+    const jobs = await job_details_route.find({company_name: req.params.company})
+    if(!jobs){
+      return res.status(404).send()
+    }
+    res.send(jobs)
+  } catch (error) {
+    res.status(500).send(error)
+  }
+});
+
 
 
 module.exports = router;

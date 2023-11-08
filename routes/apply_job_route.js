@@ -107,6 +107,21 @@ router.get('/applyjob/:company_name', async (req, res) => {
   }
 });
 
+// get request by job title to get pulled out by emplooyer
+
+router.get('/applyjob/:job_title', async (req, res) => {
+  try {
+    const applicants = await apply_job_route.find({ job_title: req.params.job_title });
+    if (!applicants) {
+      return res.status(404).send(); // Send a 404 response when the user is not found.
+    }
+    res.send(applicants); // Send the user data when found.
+  } catch (error) {
+    console.error('Error in /applyjob:', error);
+    res.status(500).send(error); // Handle server errors.
+  }
+});
+
 
 
 

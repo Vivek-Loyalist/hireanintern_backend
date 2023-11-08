@@ -16,6 +16,11 @@ const usersSchema = new mongoose.Schema({
         required: true,
     },
 
+    job_title: {
+        type: String,
+        required: true,
+    },
+
   phone_number: {
     type: Number,
     required: true,

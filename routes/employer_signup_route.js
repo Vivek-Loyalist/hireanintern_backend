@@ -62,20 +62,22 @@ router.post('/login', async (req, res) => {
 
 
 //  get request to get company_name by email
-
 router.get('/company_name/:email', async (req, res) => {
   try {
-    const user = await employer_signup_route.findOne({ email: req.params.email })
-    if (!user) {
-      // return res.status(404).send()
-      return res.status(404).json({ error: 'Email not found in the database' });
+    const users = await employer_signup_route.find({ email: req.params.email });
+    console.log('Email parameter:', req.params.email);
+    console.log('Users:', users);
 
+    if (users.length === 0) {
+      return res.status(404).json({ error: 'Email not found in the database' });
     }
-    res.send(user.company_name)
+
+    res.send(users[0].company_name); // Access the first user's company name
   } catch (error) {
-    res.status(500).send(error)
+    res.status(500).send(error);
   }
 });
+
 
 
 
