@@ -21,6 +21,6 @@ const usersSchema = new mongoose.Schema({
 });
 
 const employer_signup = mongoose.model('employer_signup', usersSchema, 'employer_signup'); 
-// in line 23 'intern_signup' is the name of the collection in the database
+// in line 23 'intern_signup' is the name of the collection in the collection
 
 module.exports = employer_signup;
