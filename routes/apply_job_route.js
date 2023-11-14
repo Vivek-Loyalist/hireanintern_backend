@@ -130,6 +130,9 @@ router.get('/applyjob/:company_name/:job_title', async (req, res) => {
   }
 });
 
+// sample
+
+
 
 
 
